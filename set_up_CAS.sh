@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# The directory where this script lives
+# From: http://stackoverflow.com/a/1482133
+SDIR=`dirname $0`
+
 getKeyValue () {
   echo `grep $1 $PWD/db.ini | cut -d\= -f2 | sed -e 's/"//g'`
 }
@@ -34,7 +38,7 @@ then
   composer update
   
   # insert the necessary plugin values to activate CAS
-  mysql -u $MUSER --password=$MPASS -h $MHOST $MDB < /home/whitmanarchives/scripts/casInstallConfig/set_up_CAS.sql
+  mysql -u $MUSER --password=$MPASS -h $MHOST $MDB < $SDIR/set_up_CAS.sql
   echo ""
   echo "Setup complete!"
 
