@@ -5,9 +5,16 @@ getKeyValue () {
 }
 
 PWD=`pwd`
+
 # Verify the Omeka db.ini file exists
 if [ -f "$PWD/db.ini" ] 
 then
+
+  if [ -d "$PWD/plugins/CentralAuth" ] 
+  then 
+    echo "This site already has the CAS plugin. Exiting..."
+    exit 1
+  fi
 
   # Get the database connection info from the db.ini file
   MHOST=$(getKeyValue "host")
