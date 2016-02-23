@@ -8,7 +8,7 @@ getKeyValue () {
   echo `grep $1 $PWD/db.ini | cut -d\= -f2 | sed -e 's/"//g'`
 }
 
-# Check to see if we've actually gotten an argument
+# Check to see if we've actually gotten an file name
 
 if [ -z $1 ] 
 then
@@ -16,12 +16,22 @@ then
   exit 1
 fi 
 
+if [ -z $2 ] 
+then
+  echo "No user role ("admin" or "researcher") passed as arguement to script. Exiting..."
+  exit 1
+fi 
+
+
+
 # Validate that file in argument $1 exists
 if [ ! -f "$1" ] 
 then
   echo "File $1 specified does not exist. Exiting..."
   exit 1
 fi
+
+### TODO - validate the argument passed (researcher, admin) is correct
 
 # Validate that file provided has no more than max number of fields
 MAXFIELDS="2"
